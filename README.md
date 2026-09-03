@@ -125,6 +125,18 @@ The backend server will run at `http://localhost:5001`.
 
 The client application will run at `http://localhost:5173`.
 
+## Data Flow
+
+The frontend does not hardcode product or EMI data. Product information is fetched dynamically from the backend APIs.
+
+```text
+PostgreSQL
+    ↓
+Prisma ORM
+    ↓
+Express REST API
+    ↓
+React Frontend
 ---
 
 ## API Endpoints
@@ -253,7 +265,7 @@ The client application will run at `http://localhost:5173`.
 * **Product → Variant**: One-to-Many (`Product.variants`). Each product has multiple storage and color variants. Deleting a product cascades to delete all associated variants.
 * **Variant → EmiPlan**: One-to-Many (`Variant.emiPlans`). Each variant defines its price and associated EMI tenure plans. Deleting a variant cascades to delete all associated EMI plans.
 
-### [`server/prisma/schema.prisma`](file:///Users/abhavkushwaha/Downloads/1fi-emi-app/server/prisma/schema.prisma)
+### `server/prisma/schema.prisma`
 
 ```prisma
 // This is your Prisma schema file,
@@ -308,7 +320,7 @@ model EmiPlan {
 
 ## Seed Data
 
-The seed data script is located at [`server/prisma/seed.js`](file:///Users/abhavkushwaha/Downloads/1fi-emi-app/server/prisma/seed.js). It wipes existing rows in order of foreign key constraints and creates 3 smartphone products, each with 3 variants (combining storage and color) and 3 EMI plans per variant.
+The seed data script is located at `server/prisma/seed.js`. It wipes existing rows in order of foreign key constraints and creates 3 smartphone products, each with 3 variants (combining storage and color) and 3 EMI plans per variant.
 
 ### Products & Slugs
 
@@ -347,10 +359,9 @@ Neon PostgreSQL
 
 ### Deployment URLs
 
-* **Live Demo**: `https://1fi-emi-app-beta.vercel.app/`
-* **Backend API**: `https://onefi-emi-app-jcbd.onrender.com`
-* **Demo Video**: <ADD_VIDEO_LINK>
-
+* **Live Demo**: https://1fi-emi-app-beta.vercel.app/
+* **Backend API**: https://onefi-emi-app-jcbd.onrender.com
+* **Demo Video**: https://drive.google.com/file/d/1FSrTQuFoxuG3OrdV8JV4RI5IhginvoKU/view?usp=sharing
 ---
 
 ## Production API Examples
